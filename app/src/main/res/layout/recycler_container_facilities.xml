@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parent_facility">
+
+        <TextView
+            android:id="@+id/tvFaciName"
+            android:text="Facility"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="#000"
+            android:padding="5sp"
+            android:gravity=""
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/tvFaciCost"
+            android:text="Cost"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:textColor="#000"
+            android:padding="5sp"
+            android:gravity=""
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+</LinearLayout>

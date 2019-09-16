@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">HealthCom</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="login">Login</string>
+    <string name="not_registered">Not Registered ??</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="re_enter_password">Re-Enter Password</string>
+    <string name="enter_birth_date">Enter Birth Date</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancle</string>
+    <string name="enter_hospital_name">Enter Hospital Name</string>
+    <string name="gov">Gov</string>
+    <string name="self">Self</string>
+    <string name="enter_city_name">Enter City Name</string>
+    <string name="enter_state_name">Enter State Name</string>
+    <string name="hospital_time">Hospital time</string>
+    <string name="about_us">About Us</string>
+    <string name="log_out">Log Out</string>
+
+
+    <string name="select_state">Select State</string>
+    <string name="government">Government</string>
+    <string name="private_self">Private/Self</string>
+    <string name="select_district">Select District</string>
+    <string name="hospital_type">Hospital Type</string>
+    <string name="search_hospitals">Search Hospitals</string>
+    <string name="doctors">Doctors</string>
+    <string name="facilities">Facilities</string>
+    <string name="location">Location</string>
+    <string name="appointment">Appointment</string>
+    <string name="location_book_appointment">Location / Book Appointment</string>
+    <string name="view_hospital_details">View Hospital Details</string>
+    <string name="doctor_name">"Doctor Name: "</string>
+    <string name="qualifications">Qualifications</string>
+    <string name="doctor">Doctor</string>
+    <string name="name">Name</string>
+    <string name="lbl_qualifications">Qualifications:</string>
+    <string name="contact_details">Contact Details:</string>
+    <string name="email_">Email Address:</string>
+    <string name="email">Email</string>
+    <string name="phone_">Phone Number:</string>
+    <string name="phone">Phone</string>
+    <string name="hospital_name">Hospital Name</string>
+    <string name="cost">Cost</string>
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".HospitalDetails">
+
+    <TextView
+        android:textColor="#FF5722"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:id="@+id/txHsptDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/view_hospital_details" />
+
+    <LinearLayout
+        android:padding="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnDoctors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/doctors" />
+
+        <Button
+            android:id="@+id/btnFacilities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/facilities" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider2"
+
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:background="#00000000" />
+
+    <TextView
+        android:id="@+id/tvFind_Book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/location_book_appointment"
+        android:textColor="#FF5722"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:padding="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/location" />
+
+        <Button
+            android:id="@+id/btnAppoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/appointment" />
+    </LinearLayout>
+
+</LinearLayout>

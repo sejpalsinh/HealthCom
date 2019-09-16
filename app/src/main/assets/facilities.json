@@ -1,0 +1,16 @@
+{
+    "facilities":[
+        {
+            "f_id": "101",
+            "f_name": "Physiotherapy"
+        }, 
+        {
+            "f_id": "102",
+            "f_name": "Dentist"
+        }, 
+        {
+            "f_id": "103",
+            "f_name": "Neurologist"
+        }
+    ]
+}

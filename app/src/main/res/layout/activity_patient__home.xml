@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".Patient_Home">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="100">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/tvState"
+                    android:textColor="#FF5722"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_state" />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="#FF5722"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:textSize="15sp"
+                    android:id="@+id/tvDistrict"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_district" />
+
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textColor="#FF5722"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:id="@+id/tvType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hospital_type" />
+
+            <RadioGroup
+                android:id="@+id/hpstType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/govt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/government" />
+
+                <RadioButton
+                    android:id="@+id/self"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/private_self" />
+            </RadioGroup>
+
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textColor="#FF5722"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:id="@+id/tvFacilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Facilities" />
+
+            <com.example.healthcom.MultiSelectionSpinner
+                android:id="@+id/multiSelectionSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center" >
+
+            </com.example.healthcom.MultiSelectionSpinner>
+
+            <Button
+                android:id="@+id/getHospitals"
+                android:background="#FA0808"
+                android:textColor="#FDFDFE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/search_hospitals" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
