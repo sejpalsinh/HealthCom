@@ -33,7 +33,6 @@ public class Patient_Home extends AppCompatActivity {
     private ArrayList<String> states;
     private ArrayList<String> arrayDistricts;
     private String[] strFacilities;
-
     //JSON Array
     private JSONArray result;
     private List<String> lstFacilities;
