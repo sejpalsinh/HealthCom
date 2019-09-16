@@ -1,6 +1,8 @@
 package com.example.healthcom;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +22,10 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
 
     String json_url;
     String JSON_STRING;
+    public  static  String doc;
+    public  static  String fac;
+    public  static  String hos;
+
 
     public AsyncResponse delegate = null;
 
@@ -31,13 +37,13 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
 
-        json_url = "https://datadotgov.000webhostapp.com/";
+        json_url = "https://datadotgov.000webhostapp.com/appservice/";
         String havetoDo;
-        String registration = json_url + "appservice/registration.php";
-        String login = json_url + "appservice/chkLogin.php";
-        String getAllFacility = json_url + "appservice/getFacilites.php";
-        String getAllDoc = json_url + "appservice/getDoctors.php";
-        String getAllHos =  json_url + "appservice/getHospital.php";
+        String registration = json_url + "registration.php";
+        String login = json_url + "chkLogin.php";
+        String getAllFacility = json_url + "getFacilites.php";
+        String getAllDoc = json_url + "getDoctors.php";
+        String getAllHos =  json_url + "getHospital.php";
         havetoDo = strings[0];
         switch (havetoDo) {
             case "regi": {
@@ -95,7 +101,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     is.close();
                     httpURLConnection.disconnect();
                     JSON_STRING = sb.toString().trim();
-                  //  System.out.println("wwwwwwwwww"+JSON_STRING );
+                    //  System.out.println("wwwwwwwwww"+JSON_STRING );
                     return JSON_STRING;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -112,7 +118,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     OutputStream os = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                     String data =
-                                    URLEncoder.encode("uname","UTF-8")+"="+
+                            URLEncoder.encode("uname","UTF-8")+"="+
                                     URLEncoder.encode(strings[1],"UTF-8")+"&"+
                                     URLEncoder.encode("password","UTF-8")+"="+
                                     URLEncoder.encode(strings[2],"UTF-8");
@@ -157,21 +163,21 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                     String data =
                             URLEncoder.encode("p_name","UTF-8")+"="+
-                            URLEncoder.encode(strings[1],"UTF-8")+"&"+
-                            URLEncoder.encode("p_address","UTF-8")+"="+
-                            URLEncoder.encode(strings[2],"UTF-8")+"&"+
-                            URLEncoder.encode("p_bdate","UTF-8")+"="+
-                            URLEncoder.encode(strings[3],"UTF-8")+"&"+
-                            URLEncoder.encode("p_number","UTF-8")+"="+
-                            URLEncoder.encode(strings[4],"UTF-8")+"&"+
-                            URLEncoder.encode("p_gen","UTF-8")+"="+
-                            URLEncoder.encode(strings[5],"UTF-8")+"&"+
-                            URLEncoder.encode("uname","UTF-8")+"="+
-                            URLEncoder.encode(strings[6],"UTF-8")+"&"+
-                            URLEncoder.encode("password","UTF-8")+"="+
-                            URLEncoder.encode(strings[7],"UTF-8")+"&"+
-                            URLEncoder.encode("flag","UTF-8")+"="+
-                            URLEncoder.encode(strings[8],"UTF-8");
+                                    URLEncoder.encode(strings[1],"UTF-8")+"&"+
+                                    URLEncoder.encode("p_address","UTF-8")+"="+
+                                    URLEncoder.encode(strings[2],"UTF-8")+"&"+
+                                    URLEncoder.encode("p_bdate","UTF-8")+"="+
+                                    URLEncoder.encode(strings[3],"UTF-8")+"&"+
+                                    URLEncoder.encode("p_number","UTF-8")+"="+
+                                    URLEncoder.encode(strings[4],"UTF-8")+"&"+
+                                    URLEncoder.encode("p_gen","UTF-8")+"="+
+                                    URLEncoder.encode(strings[5],"UTF-8")+"&"+
+                                    URLEncoder.encode("uname","UTF-8")+"="+
+                                    URLEncoder.encode(strings[6],"UTF-8")+"&"+
+                                    URLEncoder.encode("password","UTF-8")+"="+
+                                    URLEncoder.encode(strings[7],"UTF-8")+"&"+
+                                    URLEncoder.encode("flag","UTF-8")+"="+
+                                    URLEncoder.encode(strings[8],"UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -187,7 +193,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     is.close();
                     httpURLConnection.disconnect();
                     JSON_STRING = sb.toString().trim();
-                 //   System.out.println("wwwwwwwwww"+JSON_STRING );
+                    //   System.out.println("wwwwwwwwww"+JSON_STRING );
                     return JSON_STRING;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -218,6 +224,8 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.disconnect();
                     String message = sb.toString().trim();
                     System.out.println("ffffffffffffffffffffffffff :"+message);
+                    fac = message;
+                    fac = "{"+"\"facility\":"+fac+"}";
                     return message;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -248,6 +256,8 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.disconnect();
                     String message = sb.toString().trim();
                     System.out.println("ffffffffffffffffffffffffff :"+message);
+                    hos = message;
+                    hos = "{"+"\"hospital\":"+hos+"}";
                     return message;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -278,6 +288,8 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.disconnect();
                     String message = sb.toString().trim();
                     System.out.println("ffffffffffffffffffffffffff :"+message);
+                    doc = message;
+                    doc = "{"+"\"doctors\":"+doc+"}";
                     return message;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -286,6 +298,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
             }
 
         }
+        System.out.println("nonononononononnononononononononono");
         return "sejpal";
     }
 

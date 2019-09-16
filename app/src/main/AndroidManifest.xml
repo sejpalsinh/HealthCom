@@ -21,18 +21,20 @@
 
         </activity>
         <activity android:name=".HospitalDetails" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".RecyclerViewList" />
         <activity android:name=".Patient_Home">
 
         </activity>
         <activity android:name=".Hospital_Home" />
-        <activity android:name=".Spalsh" />
+        <activity android:name=".Spalsh" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Registration_hospital"
             android:parentActivityName=".Login"
