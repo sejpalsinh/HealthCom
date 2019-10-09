@@ -3,7 +3,11 @@ package com.example.healthcom;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,21 +32,26 @@ public class Patient_Home extends AppCompatActivity {
     private RadioGroup hsptType;
     private RadioButton selectedHsptType;
     private Button srchHospitals;
+    BackgroundTask bt;
 
     //An ArrayList for Spinner Items
     private ArrayList<String> states;
     private ArrayList<String> arrayDistricts;
-    private String[] strFacilities;
+    private String strFacilities;
     //JSON Array
     private JSONArray result;
     private List<String> lstFacilities;
     private ArrayList<Integer> lstNFacilities;
     private JSONObject jsonFacilities;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient__home);
+        preferences = getSharedPreferences("HealthCom",MODE_PRIVATE);
+        editor = preferences.edit();
 
         //Initializing the ArrayList
         states = new ArrayList<String>();
@@ -53,22 +62,22 @@ public class Patient_Home extends AppCompatActivity {
         srchHospitals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(spnState.getSelectedItemPosition() == 0){
+                if (spnState.getSelectedItemPosition() == 0) {
                     Toast.makeText(Patient_Home.this, "Please Select State and District", Toast.LENGTH_SHORT).show();
-                } else if(hsptType.getCheckedRadioButtonId() == -1){
+                } else if (hsptType.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(Patient_Home.this, "Please select Hospital Type", Toast.LENGTH_SHORT).show();
-                } else if(multiSelectionSpinner.getSelectedIndicies().isEmpty()){
+                } else if (multiSelectionSpinner.getSelectedIndicies().isEmpty()) {
                     Toast.makeText(Patient_Home.this, "Please select atleast one facility", Toast.LENGTH_SHORT).show();
-                } else{
+                } else {
                     List<Integer> indicesSelected = multiSelectionSpinner.getSelectedIndicies();
-                    strFacilities = new String[indicesSelected.size()];
+                    strFacilities = "";
                     try {
                         JSONArray jsonArray = jsonFacilities.getJSONArray("btnFaci");
 
-                        for(int x = 0; x < indicesSelected.size(); x++){
+                        for (int x = 0; x < indicesSelected.size(); x++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(indicesSelected.get(x));
                             String s = jsonObject.getString("f_id");
-                            strFacilities[x] = s;
+                            strFacilities = strFacilities +","+ s;
                         }
 
                     } catch (JSONException e) {
@@ -77,13 +86,25 @@ public class Patient_Home extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), RecyclerViewList.class);
                     intent.putExtra("state", spnState.getSelectedItem().toString());
                     intent.putExtra("district", spnDistrict.getSelectedItem().toString());
-
-                    if(selectedHsptType.isChecked()){
+                    String type = "";
+                    if (selectedHsptType.isChecked()) {
                         intent.putExtra("type", "govt");
+                        type = "Gov";
                     } else {
                         intent.putExtra("type", "self");
+                        type = "Self";
                     }
-                    intent.putExtra("btnFaci", strFacilities);
+                    strFacilities = "("+strFacilities+")";
+                    intent.putExtra("btnFaci",strFacilities );
+
+                    bt = new BackgroundTask(new BackgroundTask.AsyncResponse() {
+                        @Override
+                        public void processFinish(String output) {
+                            System.out.println("ppppppppppppppppppppppp :"+output);
+                            bt = null;
+                        }
+                    });
+                    bt.execute("getSelectedHospita",spnState.getSelectedItem().toString(),spnDistrict.getSelectedItem().toString(),type,strFacilities);
 
                     startActivity(intent);
                 }
@@ -101,7 +122,7 @@ public class Patient_Home extends AppCompatActivity {
                     System.out.println(jDistricts);
                     JSONArray districts = jDistricts.getJSONArray("districts");
                     arrayDistricts.clear();
-                    for (int j=0; j < districts.length(); j++){
+                    for (int j = 0; j < districts.length(); j++) {
 
                         arrayDistricts.add(districts.getString(j));
                     }
@@ -132,22 +153,23 @@ public class Patient_Home extends AppCompatActivity {
     }
 
     private void getFacilities() {
-        try{
-            jsonFacilities = new JSONObject(OpenJSON.readJSONFromAsset(Patient_Home.this, "facilities.json"));
+        try {
+            //jsonFacilities = new JSONObject(OpenJSON.readJSONFromAsset(Patient_Home.this, "facilities.json"));
+            jsonFacilities = new JSONObject(BackgroundTask.fac);
             JSONArray facilities = jsonFacilities.getJSONArray("facilities");
-            for (int i=0; i < facilities.length(); i++){
+            for (int i = 0; i < facilities.length(); i++) {
                 String facility = facilities.getJSONObject(i).getString("f_name");
                 lstFacilities.add(facility);
             }
             multiSelectionSpinner.setItems(lstFacilities);
-        }catch (Exception e){
-            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println("erererererererer:");
         }
     }
 
 
-    private void getStates(JSONArray j){
-        for(int i=0;i<j.length();i++){
+    private void getStates(JSONArray j) {
+        for (int i = 0; i < j.length(); i++) {
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
@@ -161,6 +183,23 @@ public class Patient_Home extends AppCompatActivity {
 
         //Setting adapter to show the items in the spnState
         spnState.setAdapter(new ArrayAdapter<String>(Patient_Home.this, android.R.layout.simple_spinner_dropdown_item, states));
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.mainmenu , menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void log_out(MenuItem item) {
+        editor.putString("uid","");
+        editor.putString("flag","");
+        editor.commit();
+        startActivity(new Intent(getApplicationContext(),Login.class));
+        finish();
+    }
+
+    public void abt_Us(MenuItem item) {
     }
 
 }

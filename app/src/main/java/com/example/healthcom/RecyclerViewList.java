@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class RecyclerViewList extends AppCompatActivity implements ListWithIDAdapter.OnHsptListener {
@@ -60,6 +61,10 @@ public class RecyclerViewList extends AppCompatActivity implements ListWithIDAda
         adapter = new ListWithIDAdapter(this, jHsptIDs, jHsptNames, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        String qur = "SELECT DISTINCT(h.h_id), h.h_name FROM hospitals h INNER JOIN hospitalfacilities hf ON h.h_id = hf.h_id WHERE h.state LIKE "+ getIntent().getStringExtra("state") +" AND h.district LIKE "+ getIntent().getStringExtra("district")  +" AND hf.f_id IN"+getIntent().getStringExtra("btnFaci") ;
+        System.out.println("dtdtdtdtdt : "+qur);
     }
 
     @Override

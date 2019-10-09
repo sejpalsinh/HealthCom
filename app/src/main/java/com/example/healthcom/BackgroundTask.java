@@ -37,13 +37,14 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
 
-        json_url = "https://datadotgov.000webhostapp.com/appservice/";
+        json_url = "http://jasminjasani.com/sub_domain/rkuapps/datagov/appservice/";
         String havetoDo;
         String registration = json_url + "registration.php";
         String login = json_url + "chkLogin.php";
         String getAllFacility = json_url + "getFacilites.php";
         String getAllDoc = json_url + "getDoctors.php";
         String getAllHos =  json_url + "getHospital.php";
+        String getSelectedHospita = json_url + "getSelectedHospita.php";
         havetoDo = strings[0];
         switch (havetoDo) {
             case "regi": {
@@ -111,6 +112,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
             case "login": {
                 try {
                     URL url = new URL(login);
+                    System.out.println("urlurkurl :"+url);
                     System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzz"+strings[1]);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                     httpURLConnection.setRequestMethod("POST");
@@ -225,7 +227,8 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     String message = sb.toString().trim();
                     System.out.println("ffffffffffffffffffffffffff :"+message);
                     fac = message;
-                    fac = "{"+"\"facility\":"+fac+"}";
+                    fac = "{"+"\"facilities\":"+fac+"}";
+                    System.out.println("jjjjjjjjjjjjjjj :"+fac);
                     return message;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -296,6 +299,46 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 }
                 break;
             }
+            case "getSelectedHospita": {
+                try {
+                    URL url = new URL(getSelectedHospita);
+                    System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzz"+strings[1]);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    OutputStream os = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    String data =
+                                    URLEncoder.encode("state","UTF-8")+"="+
+                                    URLEncoder.encode(strings[1],"UTF-8")+"&"+
+                                    URLEncoder.encode("city","UTF-8")+"="+
+                                    URLEncoder.encode(strings[2],"UTF-8")+"&"+
+                                    URLEncoder.encode("type","UTF-8")+"="+
+                                    URLEncoder.encode(strings[3],"UTF-8")+"&"+
+                                    URLEncoder.encode("faci","UTF-8")+"="+
+                                    URLEncoder.encode(strings[4],"UTF-8");
+                    bufferedWriter.write(data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    os.close();
+                    InputStream is = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+                    StringBuilder sb = new StringBuilder();
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    bufferedReader.close();
+                    is.close();
+                    httpURLConnection.disconnect();
+                    JSON_STRING = sb.toString().trim();
+                    System.out.println("wwwwwwwwww"+JSON_STRING );
+                    return JSON_STRING;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
 
         }
         System.out.println("nonononononononnononononononononono");
@@ -321,5 +364,6 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
+
     }
 }
