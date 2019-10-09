@@ -44,7 +44,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
         String getAllFacility = json_url + "getFacilites.php";
         String getAllDoc = json_url + "getDoctors.php";
         String getAllHos =  json_url + "getHospital.php";
-        String getSelectedHospita = json_url + "getSelectedHospita.php";
+        String getSelectedHospita = json_url + "getSelectedHospital.php";
         havetoDo = strings[0];
         switch (havetoDo) {
             case "regi": {
@@ -309,14 +309,8 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     OutputStream os = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                     String data =
-                                    URLEncoder.encode("state","UTF-8")+"="+
-                                    URLEncoder.encode(strings[1],"UTF-8")+"&"+
-                                    URLEncoder.encode("city","UTF-8")+"="+
-                                    URLEncoder.encode(strings[2],"UTF-8")+"&"+
-                                    URLEncoder.encode("type","UTF-8")+"="+
-                                    URLEncoder.encode(strings[3],"UTF-8")+"&"+
-                                    URLEncoder.encode("faci","UTF-8")+"="+
-                                    URLEncoder.encode(strings[4],"UTF-8");
+                                    URLEncoder.encode("sqlstr","UTF-8")+"="+
+                                    URLEncoder.encode(strings[1],"UTF-8");
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -332,10 +326,12 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     is.close();
                     httpURLConnection.disconnect();
                     JSON_STRING = sb.toString().trim();
+                    JSON_STRING = "{"+"\"selected_hospital\":"+JSON_STRING+"}";
                     System.out.println("wwwwwwwwww"+JSON_STRING );
                     return JSON_STRING;
                 } catch (IOException e) {
                     e.printStackTrace();
+                    System.out.println("erroerro + "+e);
                 }
                 break;
             }
@@ -354,11 +350,15 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        delegate.processFinish(result);
+        try {
+            delegate.processFinish(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public interface AsyncResponse {
-        void processFinish(String output);
+        void processFinish(String output) throws JSONException;
     }
 
     @Override

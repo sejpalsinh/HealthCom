@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 
@@ -30,15 +31,8 @@ public class Hospital_Home extends AppCompatActivity {
         setContentView(R.layout.activity_hospital__home);
         preferences = getSharedPreferences("HealthCom",MODE_PRIVATE);
         editor = preferences.edit();
-        itemsListView  = (ListView) findViewById(R.id.list_view_items);
         //tv.setText(preferences.getString("uid ","sejpal"));
-        Item item = new Item("sejpalsinh","tony");
-        itemsArrayList = new ArrayList();
-        adapter = new Doctor_List(this,itemsArrayList);
-        System.out.println("joooooooooooooooooooooooooooooooooooooooooo");
-        itemsArrayList.add(item);
-        System.out.println("zoooooooooooooooooooooooooooo: "+adapter.getCount());
-        itemsListView.setAdapter(adapter);
+
     }
 
 
@@ -58,5 +52,20 @@ public class Hospital_Home extends AppCompatActivity {
     }
 
     public void abt_Us(MenuItem item) {
+    }
+
+    public void show_Doctor(View view) {
+    }
+
+    public void show_Facilities(View view) {
+    }
+
+    public void add_Doc(View view) {
+    }
+
+    public void add_Fac(View view) {
+    }
+
+    public void search_Pa(View view) {
     }
 }

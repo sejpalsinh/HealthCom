@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.nio.Buffer;
 import java.util.ArrayList;
 
@@ -14,11 +17,24 @@ public class RecyclerViewList extends AppCompatActivity implements ListWithIDAda
     private ArrayList<Integer> jHsptIDs = new ArrayList<>();
     private ArrayList<String> jHsptNames = new ArrayList<>();
     private ListWithIDAdapter adapter;
+    BackgroundTask bt;
+    JSONObject s_hospital;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view_list);
+
+        bt = new BackgroundTask(new BackgroundTask.AsyncResponse() {
+            @Override
+            public void processFinish(String output) throws JSONException {
+                System.out.println("ppppppppppppppppppppppp :"+output);
+                s_hospital = new JSONObject(output);
+                System.out.println("Json obobob"+s_hospital.toString());
+                bt = null;
+            }
+        });
+        bt.execute("getSelectedHospita",getIntent().getStringExtra("sqlstring"));
 
         jHsptIDs.add(101);
         jHsptNames.add("Civil Hospital");
@@ -63,9 +79,7 @@ public class RecyclerViewList extends AppCompatActivity implements ListWithIDAda
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        String qur = "SELECT DISTINCT(h.h_id), h.h_name FROM hospitals h INNER JOIN hospitalfacilities hf ON h.h_id = hf.h_id WHERE h.state LIKE "+ getIntent().getStringExtra("state") +" AND h.district LIKE "+ getIntent().getStringExtra("district")  +" AND hf.f_id IN"+getIntent().getStringExtra("btnFaci") ;
-        System.out.println("dtdtdtdtdt : "+qur);
-    }
+           }
 
     @Override
     public void OnHsptClickListener(int position) {

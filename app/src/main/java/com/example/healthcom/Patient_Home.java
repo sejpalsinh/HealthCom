@@ -72,20 +72,20 @@ public class Patient_Home extends AppCompatActivity {
                     List<Integer> indicesSelected = multiSelectionSpinner.getSelectedIndicies();
                     strFacilities = "";
                     try {
-                        JSONArray jsonArray = jsonFacilities.getJSONArray("btnFaci");
+                        JSONArray jsonArray = jsonFacilities.getJSONArray("facilities");
 
                         for (int x = 0; x < indicesSelected.size(); x++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(indicesSelected.get(x));
                             String s = jsonObject.getString("f_id");
-                            strFacilities = strFacilities +","+ s;
+                            strFacilities = strFacilities + s+ ",";
                         }
+                        strFacilities = strFacilities.substring(0,strFacilities.length()-1);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        System.out.println("ererer "+e);
                     }
                     Intent intent = new Intent(getApplicationContext(), RecyclerViewList.class);
-                    intent.putExtra("state", spnState.getSelectedItem().toString());
-                    intent.putExtra("district", spnDistrict.getSelectedItem().toString());
                     String type = "";
                     if (selectedHsptType.isChecked()) {
                         intent.putExtra("type", "govt");
@@ -104,8 +104,13 @@ public class Patient_Home extends AppCompatActivity {
                             bt = null;
                         }
                     });
+                    String st = "\""+spnState.getSelectedItem().toString()+"\"";
+                    String ct = "\""+spnDistrict.getSelectedItem().toString()+"\"";
+                    //strFacilities = "("+strFacilities+")";
                     bt.execute("getSelectedHospita",spnState.getSelectedItem().toString(),spnDistrict.getSelectedItem().toString(),type,strFacilities);
-
+                    String sq = "SELECT DISTINCT(h.h_id), h.h_name FROM datagov_hospital h INNER JOIN datagov_facility_hospital hf ON h.h_id = hf.f_h_id WHERE h.h_state LIKE "+st+" AND h.h_city LIKE "+ct+" AND hf.f_id IN "+strFacilities;
+                    intent.putExtra("sqlstring", sq);
+                    System.out.println("dtdtdt :"+sq);
                     startActivity(intent);
                 }
             }
@@ -201,6 +206,9 @@ public class Patient_Home extends AppCompatActivity {
 
     public void abt_Us(MenuItem item) {
     }
+
+
+
 
 }
 
