@@ -63,6 +63,10 @@ public class Patient_Home extends AppCompatActivity {
                 {
                     bt.execute("getfacility");
                     co = 1;
+                    if(output.equals("sejpal"))
+                    {
+                        Toast.makeText(Patient_Home.this, "Please Check Yout Internet Connection", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 co = 0;
                 getFacilities(output);

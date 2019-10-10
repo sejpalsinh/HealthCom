@@ -22,6 +22,7 @@ public class Hospital_Home extends AppCompatActivity {
     ArrayList itemsArrayList;
     Doctor_List adapter;
     ListView itemsListView;
+    String uid;
 
 
     @SuppressLint("CommitPrefEdits")
@@ -31,7 +32,7 @@ public class Hospital_Home extends AppCompatActivity {
         setContentView(R.layout.activity_hospital__home);
         preferences = getSharedPreferences("HealthCom",MODE_PRIVATE);
         editor = preferences.edit();
-        //tv.setText(preferences.getString("uid ","sejpal"));
+        uid = preferences.getString("uid ","sejpal");
 
     }
 
@@ -55,17 +56,22 @@ public class Hospital_Home extends AppCompatActivity {
     }
 
     public void show_Doctor(View view) {
+        startActivity(new Intent(getApplicationContext(),hospital_showDoctor.class));
     }
 
     public void show_Facilities(View view) {
+        startActivity(new Intent(getApplicationContext(),hospital_showFacilities.class));
     }
 
     public void add_Doc(View view) {
+        startActivity(new Intent(getApplicationContext(),hospital_addDoctor.class));
     }
 
     public void add_Fac(View view) {
+        startActivity(new Intent(getApplicationContext(),hospital_addFacilitie.class));
     }
 
     public void search_Pa(View view) {
+        startActivity(new Intent(getApplicationContext(),hospital_searchPatient.class));
     }
 }

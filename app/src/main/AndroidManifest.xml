@@ -14,21 +14,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".HDoctors">
-
-        </activity>
-        <activity android:name=".HFacilities" >
-
-        </activity>
-        <activity android:name=".HospitalDetails" >
-
-        </activity>
-        <activity android:name=".RecyclerViewList" />
-        <activity android:name=".Patient_Home">
-
-        </activity>
+        <activity
+            android:name=".hospital_searchPatient"
+            android:parentActivityName=".Hospital_Home"
+            tools:targetApi="jelly_bean" />
+        <activity android:name=".hospital_addFacilitie"
+            android:parentActivityName=".Hospital_Home"
+            tools:targetApi="jelly_bean" />
+        <activity android:name=".hospital_addDoctor"
+            android:parentActivityName=".Hospital_Home"
+            tools:targetApi="jelly_bean" />
+        <activity android:name=".hospital_showFacilities"
+            android:parentActivityName=".Hospital_Home"
+            tools:targetApi="jelly_bean" />
+        <activity android:name=".hospital_showDoctor"
+            android:parentActivityName=".Hospital_Home"
+            tools:targetApi="jelly_bean" />
+        <activity android:name=".HDoctors" />
+        <activity android:name=".HFacilities" />
+        <activity android:name=".HospitalDetails" />
+        <activity
+            android:name=".RecyclerViewList"
+            android:parentActivityName=".Patient_Home" />
+        <activity android:name=".Patient_Home" />
         <activity android:name=".Hospital_Home" />
-        <activity android:name=".Spalsh" >
+        <activity android:name=".Spalsh">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
