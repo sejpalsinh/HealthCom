@@ -25,6 +25,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
     public  static  String doc;
     public  static  String fac;
     public  static  String hos;
+    public  static  Boolean pro_flag;
 
 
     public AsyncResponse delegate = null;
@@ -229,9 +230,10 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     fac = message;
                     fac = "{"+"\"facilities\":"+fac+"}";
                     System.out.println("jjjjjjjjjjjjjjj :"+fac);
-                    return message;
+                    return fac;
                 } catch (IOException e) {
                     e.printStackTrace();
+                    System.out.println("in facility eror :"+e);
                 }
                 break;
             }
@@ -261,7 +263,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     System.out.println("ffffffffffffffffffffffffff :"+message);
                     hos = message;
                     hos = "{"+"\"hospital\":"+hos+"}";
-                    return message;
+                    return hos;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -293,7 +295,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     System.out.println("ffffffffffffffffffffffffff :"+message);
                     doc = message;
                     doc = "{"+"\"doctors\":"+doc+"}";
-                    return message;
+                    return doc;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -345,11 +347,14 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         json_url = "https://datadotgov.000webhostapp.com/";
+        pro_flag = false;
+
     }
 
 
     @Override
     protected void onPostExecute(String result) {
+        pro_flag = true;
         try {
             delegate.processFinish(result);
         } catch (JSONException e) {

@@ -16,24 +16,13 @@ public class Spalsh extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spalsh);
-
-
-        bt = new BackgroundTask(new BackgroundTask.AsyncResponse() {
-            @Override
-            public void processFinish(String output) {
-                System.out.println("ppppppppppppppppppppppp :"+output);
-                bt = null;
-            }
-        });
-        bt.execute("getfacility");
-
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 startActivity(new Intent(getApplicationContext(),Login.class));
                 finish();
             }
-        },4000);
+        },2000);
 
     }
 }

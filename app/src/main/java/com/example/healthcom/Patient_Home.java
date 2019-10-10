@@ -2,6 +2,7 @@ package com.example.healthcom;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ public class Patient_Home extends AppCompatActivity {
     private JSONObject jsonFacilities;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    private ProgressDialog pd = null;
+    int co = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,26 @@ public class Patient_Home extends AppCompatActivity {
         setContentView(R.layout.activity_patient__home);
         preferences = getSharedPreferences("HealthCom",MODE_PRIVATE);
         editor = preferences.edit();
+        bt = new BackgroundTask(new BackgroundTask.AsyncResponse() {
+            @Override
+            public void processFinish(String output) {
+                System.out.println("xxxxxxxxxoot "+output);
+                if(output.equals("sejpal") && co == 0 )
+                {
+                    bt.execute("getfacility");
+                    co = 1;
+                }
+                co = 0;
+                getFacilities(output);
+                if (Patient_Home.this.pd != null) {
+                    Patient_Home.this.pd.dismiss();
+                }
+                bt=null;
+            }
+        });
+        this.pd = ProgressDialog.show(this, "Fancy App",
+                "Loading...Please wait...", true, false);
+        bt.execute("getfacility");
 
         //Initializing the ArrayList
         states = new ArrayList<String>();
@@ -154,13 +177,12 @@ public class Patient_Home extends AppCompatActivity {
         multiSelectionSpinner = findViewById(R.id.multiSelectionSpinner);
         lstFacilities = new ArrayList<String>();
         lstNFacilities = new ArrayList<Integer>();
-        getFacilities();
     }
 
-    private void getFacilities() {
+    private void getFacilities(String jstr) {
         try {
             //jsonFacilities = new JSONObject(OpenJSON.readJSONFromAsset(Patient_Home.this, "facilities.json"));
-            jsonFacilities = new JSONObject(BackgroundTask.fac);
+            jsonFacilities = new JSONObject(jstr);
             JSONArray facilities = jsonFacilities.getJSONArray("facilities");
             for (int i = 0; i < facilities.length(); i++) {
                 String facility = facilities.getJSONObject(i).getString("f_name");
