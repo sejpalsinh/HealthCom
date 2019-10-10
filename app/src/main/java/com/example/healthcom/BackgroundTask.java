@@ -2,6 +2,7 @@ package com.example.healthcom;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.view.textclassifier.ConversationActions;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -17,7 +18,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-
+import okhttp3.OkHttpClient;
 public class BackgroundTask extends AsyncTask<String, Void, String> {
 
     String json_url;
@@ -46,7 +47,9 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
         String getAllDoc = json_url + "getDoctors.php";
         String getAllHos =  json_url + "getHospital.php";
         String getSelectedHospita = json_url + "getSelectedHospital.php";
+        String addDoctor =  json_url + "addDoctor.php";
         havetoDo = strings[0];
+
         switch (havetoDo) {
             case "regi": {
                 try {
@@ -329,6 +332,41 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.disconnect();
                     JSON_STRING = sb.toString().trim();
                     JSON_STRING = "{"+"\"selected_hospital\":"+JSON_STRING+"}";
+                    System.out.println("wwwwwwwwww"+JSON_STRING );
+                    return JSON_STRING;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("erroerro + "+e);
+                }
+                break;
+            }
+            case "addDoctor": {
+                try {
+                    URL url = new URL(addDoctor);
+                    System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzz"+strings[1]);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    OutputStream os = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    String data =
+                            URLEncoder.encode("sqlstr","UTF-8")+"="+
+                                    URLEncoder.encode(strings[1],"UTF-8");
+                    bufferedWriter.write(data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    os.close();
+                    InputStream is = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+                    StringBuilder sb = new StringBuilder();
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    bufferedReader.close();
+                    is.close();
+                    httpURLConnection.disconnect();
+                    JSON_STRING = sb.toString().trim();
                     System.out.println("wwwwwwwwww"+JSON_STRING );
                     return JSON_STRING;
                 } catch (IOException e) {

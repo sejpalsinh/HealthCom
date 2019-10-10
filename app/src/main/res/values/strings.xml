@@ -47,4 +47,11 @@
     <string name="phone">Phone</string>
     <string name="hospital_name">Hospital Name</string>
     <string name="cost">Cost</string>
+    <string name="enter_doctor_name">Enter Doctor name</string>
+    <string name="cancle">Cancle</string>
+    <string name="enter_doctor_email_id">Enter Doctor Email id</string>
+    <string name="add">add</string>
+    <string name="enter_doctor_post">Enter Doctor Post</string>
+    <string name="enter_doctor_s_time_in_hospital">Enter Doctor\'s time in hospital</string>
+    <string name="enter_doctor_hospital_s_mobile_number">enter doctor/hospital\'s mobile number</string>
 </resources>
