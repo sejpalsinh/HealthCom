@@ -42,12 +42,13 @@ public class Patient_Home extends AppCompatActivity {
     //JSON Array
     private JSONArray result;
     private List<String> lstFacilities;
-    private ArrayList<Integer> lstNFacilities;
     private JSONObject jsonFacilities;
+    private ArrayList<Integer> lstNFacilities;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     private ProgressDialog pd = null;
     int co = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
