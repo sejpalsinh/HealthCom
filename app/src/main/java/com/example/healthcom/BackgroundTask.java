@@ -48,6 +48,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
         String getAllHos =  json_url + "getHospital.php";
         String getSelectedHospita = json_url + "getSelectedHospital.php";
         String addDataDocFc =  json_url + "addDataDocFc.php";
+        String getHosFac = json_url + "getHosFac.php";
         havetoDo = strings[0];
 
         switch (havetoDo) {
@@ -240,6 +241,44 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 }
                 break;
             }
+            case "getHosFac": {
+                try {
+                    URL url = new URL(getHosFac);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    OutputStream os = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    String data =
+                                    URLEncoder.encode("hid","UTF-8")+"="+
+                                    URLEncoder.encode(strings[1],"UTF-8");
+                    bufferedWriter.write(data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    os.close();
+
+                    InputStream is = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+                    StringBuilder sb = new StringBuilder();
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    bufferedReader.close();
+                    is.close();
+                    httpURLConnection.disconnect();
+                    String message = sb.toString().trim();
+                    System.out.println("ffffffffffffffffffffffffff :"+message);
+                    fac = message;
+                    fac = "{"+"\"facilities\":"+fac+"}";
+                    System.out.println("jjjjjjjjjjjjjjj :"+fac);
+                    return fac;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("in facility eror :"+e);
+                }
+                break;
+            }
             case "gethospital": {
                 try {
                     URL url = new URL(getAllHos);
@@ -280,6 +319,10 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     httpURLConnection.setDoOutput(true);
                     OutputStream os = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    String data =
+                                    URLEncoder.encode("hid","UTF-8")+"="+
+                                    URLEncoder.encode(strings[1],"UTF-8");
+                    bufferedWriter.write(data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
                     os.close();

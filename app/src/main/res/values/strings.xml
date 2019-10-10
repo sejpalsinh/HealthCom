@@ -56,4 +56,7 @@
     <string name="enter_doctor_hospital_s_mobile_number">enter doctor/hospital\'s mobile number</string>
     <string name="if_not_exist_add_your_own">If not exist add your own</string>
     <string name="enter_cost_in_rs">Enter Cost in rs</string>
+    <string name="avileble_time">avileble time</string>
+    <string name="mobile_number">mobile number</string>
+    <string name="click_here_is_not_exist">click here is not exist</string>
 </resources>
