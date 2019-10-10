@@ -47,7 +47,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
         String getAllDoc = json_url + "getDoctors.php";
         String getAllHos =  json_url + "getHospital.php";
         String getSelectedHospita = json_url + "getSelectedHospital.php";
-        String addDoctor =  json_url + "addDoctor.php";
+        String addDataDocFc =  json_url + "addDataDocFc.php";
         havetoDo = strings[0];
 
         switch (havetoDo) {
@@ -340,9 +340,9 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 }
                 break;
             }
-            case "addDoctor": {
+            case "addDataDocFc": {
                 try {
-                    URL url = new URL(addDoctor);
+                    URL url = new URL(addDataDocFc);
                     System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzz"+strings[1]);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                     httpURLConnection.setRequestMethod("POST");

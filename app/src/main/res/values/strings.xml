@@ -54,4 +54,6 @@
     <string name="enter_doctor_post">Enter Doctor Post</string>
     <string name="enter_doctor_s_time_in_hospital">Enter Doctor\'s time in hospital</string>
     <string name="enter_doctor_hospital_s_mobile_number">enter doctor/hospital\'s mobile number</string>
+    <string name="if_not_exist_add_your_own">If not exist add your own</string>
+    <string name="enter_cost_in_rs">Enter Cost in rs</string>
 </resources>

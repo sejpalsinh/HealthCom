@@ -38,7 +38,11 @@ public class hospital_addDoctor extends AppCompatActivity {
 
 
     public void clear_all(View view) {
-
+        name.setText("");
+        number.setText("");
+        email.setText("");
+        time.setText("");
+        post.setText("");
     }
 
     public void addDoc(View view) {
@@ -64,7 +68,7 @@ public class hospital_addDoctor extends AppCompatActivity {
                 bt=null;
             }
         });
-        bt.execute("addDoctor",sqlstr);
+        bt.execute("addDataDocFc",sqlstr);
 
     }
 
